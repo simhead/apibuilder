@@ -13,6 +13,7 @@ pipeline {
 				ls -al
 				pwd
 				
+				chmod +x ./scripts/getallpods.sh
                 ./scripts/getallpods.sh ${namespace}
 				
             """            
