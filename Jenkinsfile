@@ -39,16 +39,13 @@ pipeline {
 	  }
 	  
 	  stage('Run kubectl') {
+		steps {
 		  container('kubectl') {
 			sh "kubectl get pods"
 		  }
+		}
 	  }
-	  stage('Run helm') {
-		  container('helm') {
-			sh "helm list"
-		  }
-	  }
-	
+	  
 	  stage('Deploy on K8s'){
 		steps {
 		 echo 'Deploy on K8s'
