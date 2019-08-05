@@ -1,7 +1,5 @@
 def packageName = "${env.JOB_NAME}"
 def buildNumber = "${env.BUILD_NUMBER}"
-def fulldirname = "/tmp/${dirname}"
-def ENV_VAR = ""
 
 pipeline {
   agent any
