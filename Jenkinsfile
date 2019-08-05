@@ -14,7 +14,7 @@ pipeline {
 				pwd
 				
 				chmod +x ./scripts/getallpods.sh
-                //./scripts/getallpods.sh ${namespace}
+                #./scripts/getallpods.sh ${namespace}
 				whereis kubectl
 				which kubectl
 				
