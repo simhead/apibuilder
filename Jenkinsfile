@@ -21,14 +21,26 @@ pipeline {
           }        
       }
 	  stage('RUN Unit Tests'){
-	  }
-	  stage('Docker Build, Push'){
-		// This step should not normally be used in your script. Consult the inline help for details.
-		withDockerRegistry(credentialsId: 'dockerhub-axway', url: 'https://index.docker.io/v1/') {
-			// some block
+		steps {
+		 echo 'RUN Unit Tests'
 		}
 	  }
+	  stage('Docker Build, Push'){
+		steps {
+		 echo 'Docker Build, Push'
+		 
+			// This step should not normally be used in your script. Consult the inline help for details.
+			//withDockerRegistry(credentialsId: 'dockerhub-axway', url: 'https://index.docker.io/v1/') {
+				// some block
+			//}
+		 
+		}
+		
+	  }
 	  stage('Deploy on K8s'){
+		steps {
+		 echo 'Deploy on K8s'
+		}
 	  }
   }
   
