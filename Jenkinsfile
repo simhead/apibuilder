@@ -15,8 +15,7 @@ pipeline {
 				
 				chmod +x ./scripts/getallpods.sh
                 #./scripts/getallpods.sh ${namespace}
-				whereis kubectl
-				which kubectl
+				
 				
             """            
           }        
@@ -38,6 +37,18 @@ pipeline {
 		}
 		
 	  }
+	  
+	  stage('Run kubectl') {
+		  container('kubectl') {
+			sh "kubectl get pods"
+		  }
+	  }
+	  stage('Run helm') {
+		  container('helm') {
+			sh "helm list"
+		  }
+	  }
+	
 	  stage('Deploy on K8s'){
 		steps {
 		 echo 'Deploy on K8s'
