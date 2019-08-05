@@ -37,14 +37,7 @@ pipeline {
 		}
 		
 	  }
-	  
-	  stage('Run kubectl') {
-		steps {
-		  container('kubectl') {
-			sh "kubectl get pods"
-		  }
-		}
-	  }
+
 	  
 	  stage('Deploy on K8s'){
 		steps {
