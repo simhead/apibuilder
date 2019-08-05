@@ -1,5 +1,6 @@
 def packageName = "${env.JOB_NAME}"
 def buildNumber = "${env.BUILD_NUMBER}"
+def namespace = "axway-aus"
 
 pipeline {
   agent any
@@ -12,7 +13,7 @@ pipeline {
 				ls -al
 				pwd
 				
-                
+                ./scripts/getallpods.sh ${namespace}
 				
             """            
           }        
