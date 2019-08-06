@@ -4,7 +4,7 @@ def namespace = "axway-aus"
 def artifactoryURL = "http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/"
 def zippedContents = "api-sample.tar.gz"
 def apiname="apibuilder-sample${env.BUILD_NUMBER}"
-def imagelocation="image'"
+def imagelocation="image"
 def yamllocation="yaml"
 def artifactorylogin="admin:AP8xVGFtnJQM6LBvivkyGvVGAyi"
 
@@ -18,7 +18,7 @@ pipeline {
             sh """
 				pwd
 				chmod +x ./scripts/upload2artifactory.sh
-                echo "./scripts/upload2artifactory.sh ${namespace} ${apiname} ${imagelocation} ${yamllocation} ${artifactorylogin} ${buildNumber}"
+                ./scripts/upload2artifactory.sh ${namespace} ${apiname} ${imagelocation} ${yamllocation} ${artifactorylogin} ${buildNumber}
 				
 				ls -al /tmp/
             """            
