@@ -3,6 +3,10 @@ def buildNumber = "${env.BUILD_NUMBER}"
 def namespace = "axway-aus"
 def artifactoryURL = "http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/"
 def zippedContents = "api-sample.tar.gz"
+def apiname="apibuilder-sample${env.BUILD_NUMBER}"
+def imagelocation="image'"
+def yamllocation="./yaml"
+def artifactorylogin="admin:AP8xVGFtnJQM6LBvivkyGvVGAyi"
 
 pipeline {
   agent any
@@ -12,12 +16,9 @@ pipeline {
         steps {
             checkout scm
             sh """
-				ls -al
-				pwd
-				
-				chmod +x ./scripts/upload2dockerhub.sh
-                ./scripts/upload2dockerhub.sh ${namespace} ${packageName} ${buildNumber} ${zippedContents} ${artifactoryURL}
-				
+				chmod +x ./scripts/*.sh
+                ./scripts/upload2artifactory.sh ${namespace} ${apiname} ${imagelocation} ${yamllocation} ${artifactorylogin} ${buildNumber}
+				test test test yaml
 				ls -al /tmp/
             """            
           }        
