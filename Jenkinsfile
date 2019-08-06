@@ -1,6 +1,7 @@
 def packageName = "${env.JOB_NAME}"
 def buildNumber = "${env.BUILD_NUMBER}"
 def namespace = "axway-aus"
+def zippedContents = "apibuilder-sample.tar.gz"
 
 pipeline {
   agent any
@@ -13,10 +14,10 @@ pipeline {
 				ls -al
 				pwd
 				
-				chmod +x ./scripts/getallpods.sh
-                #./scripts/getallpods.sh ${namespace}
+				chmod +x ./scripts/upload2dockerhub.sh
+                ./scripts/upload2dockerhub.sh ${namespace} ${packageName} ${buildNumber} ${zippedContents}
 				
-				
+				ls -al /tmp/
             """            
           }        
       }
@@ -31,13 +32,18 @@ pipeline {
 		 
 			// This step should not normally be used in your script. Consult the inline help for details.
 			//withDockerRegistry(credentialsId: 'dockerhub-axway', url: 'https://index.docker.io/v1/') {
-				// some block
+				//dockerImage.push()
 			//}
 		 
 		}
 		
 	  }
 
+	  stage('Remove Unused docker image') {
+		  steps{
+			//sh "docker rmi $registry:$BUILD_NUMBER"
+		  }
+		}
 	  
 	  stage('Deploy on K8s'){
 		steps {
@@ -47,6 +53,14 @@ pipeline {
 			}
 		}
 	  }
+	  
+	  stage('Cleanup') {
+		  steps{
+		    echo 'Cleanup temp folder'
+			sh "docker rmi $registry:$BUILD_NUMBER"
+		  }
+		}
+
   }
   
 }
