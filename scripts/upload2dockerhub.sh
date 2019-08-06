@@ -10,3 +10,5 @@ artifactId="tbd"
 
 echo "List all pods for namespace: ${namespace}"
 tar -zxvf ./${zippedContents} -C  /tmp/${packageName}-${buildNumber}/
+
+ls -al /tmp/${packageName}-${buildNumber}/

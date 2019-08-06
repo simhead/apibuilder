@@ -1,7 +1,7 @@
 def packageName = "${env.JOB_NAME}"
 def buildNumber = "${env.BUILD_NUMBER}"
 def namespace = "axway-aus"
-def zippedContents = "apibuilder-sample.tar.gz"
+def zippedContents = "http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/api-sample.tar.gz"
 
 pipeline {
   agent any
@@ -57,7 +57,7 @@ pipeline {
 	  stage('Cleanup') {
 		  steps{
 		    echo 'Cleanup temp folder'
-			sh "docker rmi $registry:$BUILD_NUMBER"
+			
 		  }
 		}
 
