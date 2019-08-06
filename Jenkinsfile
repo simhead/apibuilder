@@ -5,7 +5,7 @@ def artifactoryURL = "http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/api
 def zippedContents = "api-sample.tar.gz"
 def apiname="apibuilder-sample${env.BUILD_NUMBER}"
 def imagelocation="image'"
-def yamllocation="./yaml"
+def yamllocation="yaml"
 def artifactorylogin="admin:AP8xVGFtnJQM6LBvivkyGvVGAyi"
 
 pipeline {
