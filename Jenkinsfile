@@ -16,6 +16,7 @@ pipeline {
         steps {
             checkout scm
             sh """
+				pwd
 				chmod +x ./scripts/*.sh
                 ./scripts/upload2artifactory.sh ${namespace} ${apiname} ${imagelocation} ${yamllocation} ${artifactorylogin} ${buildNumber}
 				test test test yaml
