@@ -19,7 +19,7 @@ pipeline {
 				pwd
 				chmod +x ./scripts/upload2artifactory.sh
                 ./scripts/upload2artifactory.sh ${namespace} ${apiname} ${imagelocation} ${yamllocation} ${artifactorylogin} ${buildNumber}
-				test test test yaml
+				
 				ls -al /tmp/
             """            
           }        
