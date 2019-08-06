@@ -1,7 +1,8 @@
 def packageName = "${env.JOB_NAME}"
 def buildNumber = "${env.BUILD_NUMBER}"
 def namespace = "axway-aus"
-def zippedContents = "http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/api-sample.tar.gz"
+def artifactoryURL = "http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/"
+def zippedContents = "api-sample.tar.gz"
 
 pipeline {
   agent any
@@ -15,7 +16,7 @@ pipeline {
 				pwd
 				
 				chmod +x ./scripts/upload2dockerhub.sh
-                ./scripts/upload2dockerhub.sh ${namespace} ${packageName} ${buildNumber} ${zippedContents}
+                ./scripts/upload2dockerhub.sh ${namespace} ${packageName} ${buildNumber} ${zippedContents} ${artifactoryURL}
 				
 				ls -al /tmp/
             """            
