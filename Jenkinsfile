@@ -49,9 +49,15 @@ pipeline {
 	  stage('Deploy on K8s'){
 		steps {
 		 echo 'Deploy on K8s'
-		 withKubeConfig(caCertificate: '', clusterName: 'dev.axway-aus.de', contextName: 'dev.axway-aus.de', credentialsId: 'axway-aus-jenkins', namespace: '', serverUrl: 'https://api.dev.axway-aus.de') {
-				sh 'kubectl get pods'
-			}
+		 sshagent (credentials: ['k8s-ssh-login']) {
+                sh """
+				  ssh -o StrictHostKeyChecking=no -l admin api.dev.axway-aus.de << EOF
+					kubectl get po
+
+                    exit
+                  EOF
+                  """
+              }
 		}
 	  }
 	  
