@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: ${apiname}-gateway
+  namespace: ${namespace}
+  selfLink: /apis/networking.istio.io/v1alpha3/namespaces/${namespace}/gateways/${apiname}-gateway
+spec:
+  selector:
+    istio: e4e4cbb56c1b8435016c4578ed0a4a9f
+  servers:
+  - hosts:
+    - '*'
+    port:
+      name: http-80
+      number: 80
+      protocol: HTTP

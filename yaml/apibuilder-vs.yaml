@@ -1,0 +1,22 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: ${apiname}
+  namespace: ${namespace}
+  selfLink: /apis/networking.istio.io/v1alpha3/namespaces/${namespace}/virtualservices/${apiname}
+spec:
+  gateways:
+  - ${apiname}-gateway
+  hosts:
+  - '*'
+  http:
+  - match:
+    - uri:
+        prefix: /api/${apiname}
+    rewrite:
+        uri: /api
+    route:
+    - destination:
+        host: ${apiname}
+        port:
+          number: 8080
