@@ -18,7 +18,7 @@ pipeline {
             sh """
 				pwd
 				chmod +x ./scripts/upload2artifactory.sh
-                echo ./scripts/upload2artifactory.sh ${namespace} ${apiname} ${imagelocation} ${yamllocation} ${artifactorylogin} ${buildNumber}
+                echo "./scripts/upload2artifactory.sh ${namespace} ${apiname} ${imagelocation} ${yamllocation} ${artifactorylogin} ${buildNumber}"
 				
 				ls -al /tmp/
             """            
