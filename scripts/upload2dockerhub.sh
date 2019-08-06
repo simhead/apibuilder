@@ -11,6 +11,7 @@ artifactId="tbd"
 
 echo "List all pods for namespace: ${namespace}"
 wget ${artifactoryURL}${zippedContents}
+mkdir /tmp/${packageName}-${buildNumber}
 tar -zxvf ./${zippedContents} -C  /tmp/${packageName}-${buildNumber}/
 
 ls -al /tmp/${packageName}-${buildNumber}/
