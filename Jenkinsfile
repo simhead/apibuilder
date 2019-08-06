@@ -42,7 +42,7 @@ pipeline {
 	  stage('Deploy on K8s'){
 		steps {
 		 echo 'Deploy on K8s'
-		 withKubeConfig(caCertificate: '', clusterName: 'dev.axway-aus.de', contextName: 'dev.axway-aus.de', credentialsId: 'my-release-jenkins', namespace: '', serverUrl: 'https://api.dev.axway-aus.de') {
+		 withKubeConfig(caCertificate: '', clusterName: 'dev.axway-aus.de', contextName: 'dev.axway-aus.de', credentialsId: 'axway-aus-jenkins', namespace: '', serverUrl: 'https://api.dev.axway-aus.de') {
 				sh 'kubectl get pods'
 			}
 		}
