@@ -37,7 +37,16 @@ pipeline {
 			//withDockerRegistry(credentialsId: 'dockerhub-axway', url: 'https://index.docker.io/v1/') {
 				//dockerImage.push()
 			//}
-		 
+			 sshagent (credentials: ['k8s-ssh-login']) {
+					sh """
+					  ssh -o StrictHostKeyChecking=no -l admin api.dev.axway-aus.de << EOF
+						sudo docker images
+
+						exit
+					  EOF
+					  """
+				  }
+			}
 		}
 		
 	  }
