@@ -13,7 +13,7 @@ echo "Generate k8s yaml files"
 sed -i 's/\${apiname}/'${apiname}'/g' $yamllocation/apibuilder-deploy.yaml $yamllocation/apibuilder-gw.yaml $yamllocation/apibuilder-vs.yaml
 sed -i 's/\${version}/'${buildnum}'/g' $yamllocation/apibuilder-deploy.yaml $yamllocation/apibuilder-gw.yaml $yamllocation/apibuilder-vs.yaml
 sed -i 's/\${namespace}/'${namespace}'/g' $yamllocation/apibuilder-deploy.yaml $yamllocation/apibuilder-gw.yaml $yamllocation/apibuilder-vs.yaml
-sed -i 's/\${imagelocation}/'${imagelocation}'/g' $yamllocation/apibuilder-deploy.yaml $yamllocation/apibuilder-gw.yaml $yamllocation/apibuilder-vs.yaml
+sed -i 's/\${imagelocation}/axwayaustralia\/'${imagelocation}'/g' $yamllocation/apibuilder-deploy.yaml $yamllocation/apibuilder-gw.yaml $yamllocation/apibuilder-vs.yaml
 
 echo "Upload to Artifactory"
 k8sdeployment="http://jfrog.dev.axway-aus.de/artifactory/axway-aus/apibuilder/yaml/"${buildnum}"/apibuilder-deploy.yaml"
