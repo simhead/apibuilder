@@ -14,9 +14,9 @@ sed -i 's/\${namespace}/'${namespace}'/g' $yamllocation/apibuilder-deploy.yaml $
 sed -i 's/\${imagelocation}/'${imagelocation}'/g' $yamllocation/apibuilder-deploy.yaml $yamllocation/apibuilder-gw.yaml $yamllocation/apibuilder-vs.yaml
 
 echo "Upload to Artifactory"
-k8sdeployment="http://jfrog.dev.axway-aus.de/artifactory/axway-aus/apibuilder/"${buildnum}"/apibuilder-deploy.yaml"
-k8sgateway="http://jfrog.dev.axway-aus.de/artifactory/axway-aus/apibuilder/"${buildnum}"/apibuilder-gw.yaml"
-k8svirtualservice="http://jfrog.dev.axway-aus.de/artifactory/axway-aus/apibuilder/"${buildnum}"/apibuilder-vs.yaml"
+k8sdeployment="http://jfrog.dev.axway-aus.de/artifactory/axway-aus/apibuilder/yaml/"${buildnum}"/apibuilder-deploy.yaml"
+k8sgateway="http://jfrog.dev.axway-aus.de/artifactory/axway-aus/apibuilder/yaml/"${buildnum}"/apibuilder-gw.yaml"
+k8svirtualservice="http://jfrog.dev.axway-aus.de/artifactory/axway-aus/apibuilder/yaml/"${buildnum}"/apibuilder-vs.yaml"
 curl -u${artifactorylogin} -T $yamllocation/apibuilder-deploy.yaml ${k8sdeployment}
 curl -u${artifactorylogin} -T $yamllocation/apibuilder-gw.yaml ${k8sgateway}
 curl -u${artifactorylogin} -T $yamllocation/apibuilder-vs.yaml ${k8svirtualservice}
