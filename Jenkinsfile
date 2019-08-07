@@ -67,17 +67,11 @@ pipeline {
                 sh """
 				  ssh -o StrictHostKeyChecking=no -l admin api.dev.axway-aus.de << EOF
 				  
-					echo 'curl -o /tmp/${zippedContents} ${artifactoryURL}/axway-aus/apibuilder/${zippedContents}'
-					curl -o /tmp/api-sample.tar.gz ${artifactoryURL}/axway-aus/apibuilder/${zippedContents}
 					curl -o /tmp/apibuilder-deploy.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-deploy.yaml
 					curl -o /tmp/apibuilder-gw.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-gw.yaml
 					curl -o /tmp/apibuilder-vs.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-vs.yaml
 					
-					tar -zxf /tmp/${zippedContents} -C /tmp
 					ls -al /tmp
-					
-					cd /tmp/${extractDir}
-					sudo docker build -t ${imageName} /tmp/${extractDir}
 					
 					kubectl delete deploy ${apiname} -n axway-aus
 					kubectl delete svc ${apiname} -n axway-aus

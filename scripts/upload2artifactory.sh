@@ -7,6 +7,7 @@ yamllocation=$4
 artifactorylogin=$5
 buildnum=$6
 
+echo ${imagelocation}
 echo "Generate k8s yaml files"
 
 sed -i 's/\${apiname}/'${apiname}'/g' $yamllocation/apibuilder-deploy.yaml $yamllocation/apibuilder-gw.yaml $yamllocation/apibuilder-vs.yaml
