@@ -4,7 +4,7 @@ def namespace = "axway-aus"
 def artifactoryURL = "http://jfrog.dev.axway-aus.de:80/artifactory"
 def zippedContents = "api-sample.tar.gz"
 def extractDir = "api-sample"
-def apiname="apibuilder-sample${env.BUILD_NUMBER}"
+def apiname="apibuilder-sample"
 def imageName="apibuilder-sample:latest"
 def yamllocation="yaml"
 def artifactorylogin="admin:AP8xVGFtnJQM6LBvivkyGvVGAyi"
@@ -73,13 +73,20 @@ pipeline {
 					curl -o /tmp/apibuilder-gw.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-gw.yaml
 					curl -o /tmp/apibuilder-vs.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-vs.yaml
 					
-					cd /tmp
 					tar -zxf /tmp/${zippedContents}
+					ls -al /tmp
+					
 					cd /tmp/${extractDir}
 					sudo docker build -t ${imageName} .
 					
+					kubectl delete deploy ${apiname} -n axway-aus
+					kubectl delete svc ${apiname} -n axway-aus
+					
+					kubectl apply -f /tmp/apibuilder-deploy.yaml -n axway-aus
+					kubectl apply -f /tmp/apibuilder-gw.yaml -n axway-aus
+					kubectl apply -f /tmp/apibuilder-vs.yaml -n axway-aus
 					ls -al /tmp
-					kubectl get po
+					kubectl get po -n axway-aus
 
                     exit
                   EOF

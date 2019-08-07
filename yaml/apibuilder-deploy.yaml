@@ -40,7 +40,7 @@ spec:
     metadata:
       labels:
         app: ${apiname}
-        version: v1
+        version: v${version}
     spec:
       containers:
       - image: ${imagelocation}

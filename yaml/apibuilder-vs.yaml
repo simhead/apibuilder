@@ -12,7 +12,7 @@ spec:
   http:
   - match:
     - uri:
-        prefix: /api/${apiname}
+        prefix: /api/${version}/${apiname}
     rewrite:
         uri: /api
     route:
