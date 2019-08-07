@@ -73,7 +73,7 @@ pipeline {
 					curl -o /tmp/apibuilder-gw.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-gw.yaml
 					curl -o /tmp/apibuilder-vs.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-vs.yaml
 					
-					tar -zxf /tmp/${zippedContents}
+					tar -zxf /tmp/${zippedContents} -C /tmp
 					ls -al /tmp
 					
 					cd /tmp/${extractDir}
@@ -87,6 +87,8 @@ pipeline {
 					kubectl apply -f /tmp/apibuilder-vs.yaml -n axway-aus
 					ls -al /tmp
 					kubectl get po -n axway-aus
+					
+					rm -rf /tmp/
 
                     exit
                   EOF
