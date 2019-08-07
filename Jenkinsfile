@@ -1,7 +1,7 @@
 def packageName = "${env.JOB_NAME}"
 def buildNumber = "${env.BUILD_NUMBER}"
 def namespace = "axway-aus"
-def artifactoryURL = "http://jfrog.dev.axway-aus.de:80/artifactory/"
+def artifactoryURL = "http://jfrog.dev.axway-aus.de:80/artifactory"
 def zippedContents = "api-sample.tar.gz"
 def apiname="apibuilder-sample${env.BUILD_NUMBER}"
 def imagelocation="image"
@@ -42,8 +42,9 @@ pipeline {
 					  ssh -o StrictHostKeyChecking=no -l admin api.dev.axway-aus.de << EOF
 						sudo docker images
 						
-						curl -o /tmp/api-sample.tar.gz ${artifactoryURL}/axway-aus/apibuilder/api-sample.tar.gz
-						tar -zxvf /tmp/api-sample.tar.gz
+						echo 'curl -o /tmp/api-sample.tar.gz ${artifactoryURL}/axway-aus/apibuilder/${zippedContents}'
+						curl -o /tmp/api-sample.tar.gz ${artifactoryURL}/axway-aus/apibuilder/${zippedContents}
+						tar -zxvf /tmp/${zippedContents}
 						ls /tmp
 						exit
 					  EOF
