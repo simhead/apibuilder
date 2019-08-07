@@ -3,8 +3,9 @@ def buildNumber = "${env.BUILD_NUMBER}"
 def namespace = "axway-aus"
 def artifactoryURL = "http://jfrog.dev.axway-aus.de:80/artifactory"
 def zippedContents = "api-sample.tar.gz"
+def extractDir = "api-sample"
 def apiname="apibuilder-sample${env.BUILD_NUMBER}"
-def imagelocation="image"
+def imageName="apibuilder-sample:latest"
 def yamllocation="yaml"
 def artifactorylogin="admin:AP8xVGFtnJQM6LBvivkyGvVGAyi"
 
@@ -18,7 +19,7 @@ pipeline {
             sh """
 				pwd
 				chmod +x ./scripts/upload2artifactory.sh
-                ./scripts/upload2artifactory.sh ${namespace} ${apiname} ${imagelocation} ${yamllocation} ${artifactorylogin} ${buildNumber}
+                ./scripts/upload2artifactory.sh ${namespace} ${apiname} ${imageName} ${yamllocation} ${artifactorylogin} ${buildNumber}
 				
 				ls -al /tmp/
             """            
@@ -42,10 +43,7 @@ pipeline {
 					  ssh -o StrictHostKeyChecking=no -l admin api.dev.axway-aus.de << EOF
 						sudo docker images
 						
-						echo 'curl -o /tmp/api-sample.tar.gz ${artifactoryURL}/axway-aus/apibuilder/${zippedContents}'
-						curl -o /tmp/api-sample.tar.gz ${artifactoryURL}/axway-aus/apibuilder/${zippedContents}
-						cd /tmp
-						tar -zxf /tmp/${zippedContents}
+						
 						ls /tmp
 						exit
 					  EOF
@@ -68,6 +66,19 @@ pipeline {
 		 sshagent (credentials: ['k8s-ssh-login']) {
                 sh """
 				  ssh -o StrictHostKeyChecking=no -l admin api.dev.axway-aus.de << EOF
+				  
+					echo 'curl -o /tmp/api-sample.tar.gz ${artifactoryURL}/axway-aus/apibuilder/${zippedContents}'
+					curl -o /tmp/api-sample.tar.gz ${artifactoryURL}/axway-aus/apibuilder/${zippedContents}
+					curl -o /tmp/apibuilder-deploy.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-deploy.yaml
+					curl -o /tmp/apibuilder-gw.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-gw.yaml
+					curl -o /tmp/apibuilder-vs.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-vs.yaml
+					
+					cd /tmp
+					tar -zxf /tmp/${zippedContents}
+					cd /tmp/${extractDir}
+					sudo docker build -t ${imageName} .
+					
+					ls -al /tmp
 					kubectl get po
 
                     exit
@@ -80,7 +91,7 @@ pipeline {
 	  stage('Cleanup') {
 		  steps{
 		    echo 'Cleanup temp folder'
-			
+			//rm -rf /tmp/*
 		  }
 		}
 
