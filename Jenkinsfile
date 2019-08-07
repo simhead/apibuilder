@@ -5,7 +5,7 @@ def artifactoryURL = "http://jfrog.dev.axway-aus.de:80/artifactory"
 def zippedContents = "api-sample.tar.gz"
 def extractDir = "api-sample"
 def apiname="apibuilder-sample"
-def imageName="apibuilder-sample:latest"
+def imageName="axwayaustralia/apic:api-sample2"
 def yamllocation="yaml"
 def artifactorylogin="admin:AP8xVGFtnJQM6LBvivkyGvVGAyi"
 
@@ -67,7 +67,7 @@ pipeline {
                 sh """
 				  ssh -o StrictHostKeyChecking=no -l admin api.dev.axway-aus.de << EOF
 				  
-					echo 'curl -o /tmp/api-sample.tar.gz ${artifactoryURL}/axway-aus/apibuilder/${zippedContents}'
+					echo 'curl -o /tmp/${zippedContents} ${artifactoryURL}/axway-aus/apibuilder/${zippedContents}'
 					curl -o /tmp/api-sample.tar.gz ${artifactoryURL}/axway-aus/apibuilder/${zippedContents}
 					curl -o /tmp/apibuilder-deploy.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-deploy.yaml
 					curl -o /tmp/apibuilder-gw.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-gw.yaml
@@ -88,7 +88,8 @@ pipeline {
 					ls -al /tmp
 					kubectl get po -n axway-aus
 					
-					rm -rf /tmp/
+					rm -rf /tmp/${extractDir}
+					rm -f /tmp/${zippedContents}
 
                     exit
                   EOF
