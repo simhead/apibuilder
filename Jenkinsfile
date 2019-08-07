@@ -44,7 +44,8 @@ pipeline {
 						
 						echo 'curl -o /tmp/api-sample.tar.gz ${artifactoryURL}/axway-aus/apibuilder/${zippedContents}'
 						curl -o /tmp/api-sample.tar.gz ${artifactoryURL}/axway-aus/apibuilder/${zippedContents}
-						tar -zxvf /tmp/${zippedContents}
+						cd /tmp
+						tar -zxf /tmp/${zippedContents}
 						ls /tmp
 						exit
 					  EOF
