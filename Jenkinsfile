@@ -77,7 +77,7 @@ pipeline {
 					ls -al /tmp
 					
 					cd /tmp/${extractDir}
-					sudo docker build -t ${imageName} .
+					sudo docker build -t ${imageName} /tmp/${extractDir}
 					
 					kubectl delete deploy ${apiname} -n axway-aus
 					kubectl delete svc ${apiname} -n axway-aus
