@@ -1,13 +1,13 @@
 def packageName = "${env.JOB_NAME}"
 def buildNumber = "${env.BUILD_NUMBER}"
 def namespace = "axway-aus"
-def artifactoryURL = "http://jfrog.dev.axway-aus.de:80/artifactory"
+def artifactoryURL = "http://jenkins.dev.axway-aus.de:9081/artifactory/axway-aus/"
 def zippedContents = "api-sample.tar.gz"
 def extractDir = "api-sample"
 def apiname="apibuilder-sample"
 def imageName="apic:api-sample2"
 def yamllocation="yaml"
-def artifactorylogin="admin:AP8xVGFtnJQM6LBvivkyGvVGAyi"
+def artifactorylogin="admin:AP3K6YpCt1DCaq985YtLUHA2omD"
 
 pipeline {
   agent any
@@ -19,7 +19,7 @@ pipeline {
             sh """
 				pwd
 				chmod +x ./scripts/upload2artifactory.sh
-                ./scripts/upload2artifactory.sh ${namespace} ${apiname} ${imageName} ${yamllocation} ${artifactorylogin} ${buildNumber}
+                ./scripts/upload2artifactory.sh ${namespace} ${apiname} ${imageName} ${yamllocation} ${artifactorylogin} ${buildNumber} ${artifactoryURL}
 				
 				ls -al /tmp/
             """            
@@ -67,9 +67,9 @@ pipeline {
                 sh """
 				  ssh -o StrictHostKeyChecking=no -l admin api.dev.axway-aus.de << EOF
 				  
-					curl -o /tmp/apibuilder-deploy.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-deploy.yaml
-					curl -o /tmp/apibuilder-gw.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-gw.yaml
-					curl -o /tmp/apibuilder-vs.yaml http://jfrog.dev.axway-aus.de:80/artifactory/axway-aus/apibuilder/yaml/${buildNumber}/apibuilder-vs.yaml
+					curl -o /tmp/apibuilder-deploy.yaml ${artifactoryURL}/yaml/${buildNumber}/apibuilder-deploy.yaml
+					curl -o /tmp/apibuilder-gw.yaml ${artifactoryURL}/yaml/${buildNumber}/apibuilder-gw.yaml
+					curl -o /tmp/apibuilder-vs.yaml ${artifactoryURL}/yaml/${buildNumber}/apibuilder-vs.yaml
 					
 					ls -al /tmp
 					
