@@ -12,7 +12,6 @@ spec:
   - match:
   - appendHeaders:
       x-api-version: v${version}
-      x-api-name: ${apiname}
     - uri:
         prefix: /api/${apiname}
     rewrite:
