@@ -19,8 +19,9 @@ spec:
         host: ${apiname}
         port:
           number: 8080
-      response:
-        add:
-          api-version: v${version}
-          api-name: ${apiname}
+      headers:
+        response:
+          add:
+            api-version: v${version}
+            api-name: ${apiname}
 
