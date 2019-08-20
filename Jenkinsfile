@@ -1,13 +1,13 @@
 def packageName = "${env.JOB_NAME}"
 def buildNumber = "${env.BUILD_NUMBER}"
-def namespace = "${ISTIO-APIC Namespace}"
-def artifactoryURL = "${Artifactory URL}"
+def namespace = "${ISTIO-APIC-Namespace}"
+def artifactoryURL = "${ArtifactoryURL}"
 def zippedContents = "api-sample.tar.gz"
 def extractDir = "api-sample"
-def apiname="${API name}"
-def imageName="${Docker Image Name}"
+def apiname="${APIname}"
+def imageName="${DockerImageName}"
 def yamllocation="yaml"
-def artifactorylogin="${Artifactory login}"
+def artifactorylogin="${ArtifactoryLogin}"
 
 pipeline {
   agent any
