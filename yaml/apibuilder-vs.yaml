@@ -9,15 +9,6 @@ spec:
   hosts:
   - '*'
   http:
-  - headers:
-      response:
-        add:
-          api-version: v${version}
-    route:
-    - destination:
-        host: ${apiname}
-        port:
-          number: 8080
   - match:
     - uri:
         prefix: /api/${apiname}
