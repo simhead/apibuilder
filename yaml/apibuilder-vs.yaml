@@ -9,9 +9,16 @@ spec:
   hosts:
   - '*'
   http:
+  - headers:
+      response:
+        add:
+          api-version: v${version}
+    route:
+    - destination:
+        host: ${apiname}
+        port:
+          number: 8000
   - match:
-  - appendHeaders:
-      x-api-version: v${version}
     - uri:
         prefix: /api/${apiname}
     rewrite:
