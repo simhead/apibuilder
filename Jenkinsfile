@@ -1,6 +1,6 @@
 def packageName = "${env.JOB_NAME}"
 def buildNumber = "${env.BUILD_NUMBER}"
-def namespace = "${ISTIO-APIC-Namespace}"
+def namespace = "${IstioApicNamespace}"
 def artifactoryURL = "${ArtifactoryURL}"
 def zippedContents = "api-sample.tar.gz"
 def extractDir = "api-sample"
