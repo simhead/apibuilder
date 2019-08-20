@@ -1,13 +1,13 @@
 def packageName = "${env.JOB_NAME}"
 def buildNumber = "${env.BUILD_NUMBER}"
-def namespace = "axway-aus"
-def artifactoryURL = "http://jenkins.dev.axway-aus.de:9081/artifactory/axway-aus/"
+def namespace = "${ISTIO-APIC Namespace}"
+def artifactoryURL = "${Artifactory URL}"
 def zippedContents = "api-sample.tar.gz"
 def extractDir = "api-sample"
-def apiname="apibuilder-sample"
-def imageName="apic:api-sample2"
+def apiname="${API name}"
+def imageName="${Docker Image Name}"
 def yamllocation="yaml"
-def artifactorylogin="admin:AP3K6YpCt1DCaq985YtLUHA2omD"
+def artifactorylogin="${Artifactory login}"
 
 pipeline {
   agent any
