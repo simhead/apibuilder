@@ -68,8 +68,6 @@ pipeline {
 				  ssh -o StrictHostKeyChecking=no -l admin api.dev.axway-aus.de << EOF
 				  
 					curl -o /tmp/apibuilder-deploy.yaml ${artifactoryURL}/yaml/${buildNumber}/apibuilder-deploy.yaml
-					curl -o /tmp/apibuilder-gw.yaml ${artifactoryURL}/yaml/${buildNumber}/apibuilder-gw.yaml
-					curl -o /tmp/apibuilder-vs.yaml ${artifactoryURL}/yaml/${buildNumber}/apibuilder-vs.yaml
 					
 					ls -al /tmp
 					
@@ -77,8 +75,7 @@ pipeline {
 					kubectl delete svc ${apiname} -n axway-aus
 					
 					kubectl apply -f /tmp/apibuilder-deploy.yaml -n axway-aus
-					kubectl apply -f /tmp/apibuilder-gw.yaml -n axway-aus
-					kubectl apply -f /tmp/apibuilder-vs.yaml -n axway-aus
+					
 					ls -al /tmp
 					kubectl get po -n axway-aus
 					
