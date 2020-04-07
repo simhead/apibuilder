@@ -65,7 +65,7 @@ pipeline {
 		 echo 'Deploy on K8s'
 		 sshagent (credentials: ['k8s-ssh-login']) {
                 sh """
-				  ssh -o StrictHostKeyChecking=no -l admin api.dev.axway-aus.de << EOF
+				  ssh -o StrictHostKeyChecking=no -l admin api.dev.axway-aus.de  -p 10022 << EOF
 				  
 					curl -o /tmp/apibuilder-deploy.yaml ${artifactoryURL}/yaml/${buildNumber}/apibuilder-deploy.yaml
 					
