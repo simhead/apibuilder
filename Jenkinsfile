@@ -40,7 +40,7 @@ pipeline {
 			//}
 			 sshagent (credentials: ['k8s-ssh-login']) {
 					sh """
-					  ssh -o StrictHostKeyChecking=no -l admin api.dev.axway-aus.de << EOF
+					  ssh -o StrictHostKeyChecking=no -l admin api.dev.axway-aus.de -p 10022 << EOF
 						sudo docker images
 						
 						
